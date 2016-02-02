@@ -1,0 +1,56 @@
+INDEX (00h) 
+STATUS_RD (01h) //The status read instruction reads the internal status of the SEPS525. 
+OSC_CTL (02h)   Internal oscillator mode selection
+IREF (80h)  Control reference voltage generation. 
+CLOCK_DIV (03h) OSC frequency setting / Display frequency divide ration. 
+REDUCE_CURRENT (04h)   Reduced driving current. 
+SOFT_RST (05h)  Soft reset active high.
+DISP_ON_OFF (06h)  Display ON/OFF 
+PRECHARGE_TIME_R (08h)  Precharge time R. 
+PRECHARGE_TIME_G (09h)  Precharge time G
+PRECHARGE_TIME_B (0Ah) 	 Precharge time B. 	
+PRECHARGE_CURRENT_R (0Bh)   Precharge current R
+PRECHARGE_CURRENT_G (0Ch)  Precharge current G
+PRECHARGE_CURRENT_B (0Dh)  Precharge current B
+DRIVING_CURRENT_R (10h) 	 DCR driving current R.	
+DRIVING_CURRENT_G (11h)	 DCG driving current G.	
+DRIVING_CURRENT_B (12h) 	 DCB driving current B. 	
+DISPLAY_MODE_SET(13h)  RGB swap, Scan mode, Row scan shift directio, Column data shift direction. 
+RGB_IF (14h)  RGB interface mode.
+RGB_POL (15h) Vsync, dot clock polarity, 
+MEMORY_WRITE_MODE (16h)  automatic V+ H increment / decrement
+MX1_ADDR (17h) Memory Access Window Dimension
+MX2_ADDR (18h) Memory Access Window Dimension
+MY1_ADDR (19h) Memory Access Window Dimension
+MY2_ADDR (1Ah) Memory Access Window Dimension
+MEMORY_ACCESSPOINTER X (20h) horizontal start position of a window for write in memory 
+MEMORY_ACCESSPOINTER Y (21h) vertical start position of a window for write in memory 
+DDRAM_DATA_ACCESS_PORT (22h)  Internal DDRAM memory can be accessed. 
+GRAY_SCALE _TABLE_INDEX (50h)  Index register for gamma table
+GRAY_SCALE_TABLE_DATA (51h) Data register for gamma table. 
+DUTY (28h)  Display duty ratio(16~127). 
+DSL (29h)  Display start line(0~127-16). 
+D1_DDRAM_FAC (2Eh)   First screen display horizontal address for display. 
+D1_DDRAM_FAR (2Fh)   First screen display vertical address for display. 
+D2_DDRAM_SAC (31h) 	 Second screen display horizontal address for Display
+D2_DDRAM_SAR (32h)  Second screen display vertical address for display.
+SCR1_FX1 (33h)  The start/end address of active column outputs for the first screen
+SCR1_FX2 (34h) 	The start/end address of active column outputs for the first screen
+SCR1_FY1 (35h)	The start/end address of active row outputs for the second screen 
+SCR1_FY2 (36h) 	The start/end address of active row outputs for the second screen 
+SCR2_SX1 (37h)  2nd Screen display size horizontal start. 
+SCR2_SX2 (38h)  2nd Screen display size horizontal end. 
+SCR2_SY1 (39h)  2nd Screen display size vertical start. (>= 1) 
+SCR2_SY2 (3Ah)  2nd Screen display size vertical end. 
+SCREEN_SAVER_CONTEROL (3Bh)  1st, 2nd Screen screen saver control
+SS_SLEEP_TIMER (3Ch) : Screen saver sleep timer. 
+SCREEN_SAVER_MODE (3Dh) Screen mode set. 
+SS_SCR1_FU (3Eh) 1st Screen update timer based on frame sync. 
+SS_SCR1_MXY (3Fh) 1st Screen Horizontal moving step. 
+SS_SCR2_FU (40h)  2nd Screen update timer based on frame sync. 
+SS_SCR2_MXY (41h) screen moving step
+MOVING_DIRECTION (42h) 2nd Screen moving direction. 
+SS_SCR2_SX1 (47h) : 2nd Screen image box horizontal start address
+SS_SCR2_SX2 (48h) 2nd Screen image box horizontal end address. 
+SS_SCR2_SY1 (49h)  2nd Screen image box vertical start address. 
+SS_SCR2_SY2 (4Ah) 2nd Screen image box vertical end address
