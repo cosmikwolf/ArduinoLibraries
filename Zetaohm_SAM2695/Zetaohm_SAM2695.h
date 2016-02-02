@@ -31,7 +31,6 @@ class Zetaohm_SAM2695
  // NewSoftSerial synth;
 //    HardwareSerial * _HardSerial;
     byte synthInitialized;
-    void begin();
   public:
     // default constructor sets NewSoftSerial to use pin 4 for tx, and inhibits rx
     Zetaohm_SAM2695();
@@ -40,6 +39,7 @@ class Zetaohm_SAM2695
   //  Zetaohm_SAM2695(HardwareSerial *serial);
     virtual size_t samWrite(byte c);
     virtual size_t samWrite(byte *buf, int cnt);
+    void begin();
     void noteOn(byte channel, byte pitch, byte velocity);
     void noteOff(byte channel, byte pitch);
     void programChange (byte bank, byte channel, byte v);

@@ -34,14 +34,14 @@
                                             // Please note that the Thru will work only when both COMPILE_MIDI_IN and COMPILE_MIDI_OUT set to 1.
 
 
-#define USE_SERIAL_PORT         Serial      // Change the number (to Serial1 for example) if you want
+#define USE_SERIAL_PORT         Serial3      // Change the number (to Serial1 for example) if you want
                                             // to use a different serial port for MIDI I/O.
 
 // Use Serial1 on all Teensy boards, because Serial is USB virtual serial
 // Arduino.h must be included before MIDI.h to define CORE_TEENSY
 #if defined(CORE_TEENSY)
 #undef USE_SERIAL_PORT
-#define USE_SERIAL_PORT         Serial1
+#define USE_SERIAL_PORT         Serial3
 #endif
 
 
