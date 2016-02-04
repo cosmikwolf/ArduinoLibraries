@@ -1,4 +1,6 @@
+#include "src/gdisp/gdisp_pixmap.c"
 #include "src/gfx_mk.c"
+
 //#include "src/gdisp/gdisp.mk.c"
 
 //#include "src/gdisp/mcufont/mf_font.c"
