@@ -27,9 +27,9 @@
 // You can use any (4 or) 5  pins 
 #define sclk 13
 #define mosi 11
-#define dc   9
-#define cs   10
-#define rst  8
+#define dc   10
+#define cs   6
+#define rst  9
 
 // Color definitions
 #define	BLACK           0x0000

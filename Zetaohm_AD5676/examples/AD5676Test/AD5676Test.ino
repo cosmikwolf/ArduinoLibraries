@@ -31,7 +31,7 @@ void setup(){
 //pinMode(2, OUTPUT);
   pixels.begin();
   pixels.setBrightness(100);
-
+  SPI.usingInterrupt(masterClock);
   mcp.begin(1);      // use default address 0
 
   mcp.pinMode(0, OUTPUT);

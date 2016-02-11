@@ -17,10 +17,11 @@
 class Zetaohm_AD5676{
  public:
   Zetaohm_AD5676();
-  void begin(uint8_t cs_pin, uint8_t ldac_pin);  
+  void begin(uint8_t cs_pin);  
   void setVoltage( uint8_t dac, uint16_t output );
   void softwareReset();
 	void internalReferenceEnable(bool enable);
+  void setLDACMaskRegister(byte n);
  private:
   uint8_t _cs_pin;   //AD5676 SYNC line
   uint8_t _ldac_pin;

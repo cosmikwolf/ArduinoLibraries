@@ -12,12 +12,12 @@
 #define GPIO_CS SSD1327_pins.cs
 #define GPIO_DC SSD1327_pins.dc
 
-#define SPILOWSPEED 1400000
-#define SPIHIGHSPEED 14000000
+//#define SPILOWSPEED   SPI_CLOCK_DIV4
+#define SPIHIGHSPEED SPI_CLOCK_DIV2
 #define SPIBITORDER MSBFIRST
 #define SPIMODE SPI_MODE0
 
-static SPISettings spiSettings(SPILOWSPEED, SPIBITORDER, SPIMODE);
+static SPISettings spiSettings(SPIHIGHSPEED, SPIBITORDER, SPIMODE);
 
 static inline void cmdmode()
 {

@@ -27,20 +27,16 @@ Zetaohm_AD5676::Zetaohm_AD5676() {
     @brief  Setups the HW
 */
 /**************************************************************************/
-void Zetaohm_AD5676::begin(uint8_t cs_pin, uint8_t ldac_pin) {
-  _cs_pin = cs_pin;
-  _ldac_pin = ldac_pin;
-  pinMode(_cs_pin, OUTPUT);                        // cs_pin is also the SYNC pin
-  pinMode(_ldac_pin, OUTPUT);                        // configure cs_pin as output
-  digitalWriteFast(_cs_pin, HIGH);  //deactivate DAC
-  digitalWriteFast(_ldac_pin, LOW); 
 
-//  spi4teensy3::init(0,1,0);
+ void Zetaohm_AD5676::begin(uint8_t cs_pin) {
+  _cs_pin = cs_pin;
+  _ldac_pin = 0;
+  pinMode(_cs_pin, OUTPUT);                        // cs_pin is also the SYNC pin
+  digitalWriteFast(_cs_pin, HIGH);  //deactivate DAC
+
   SPI.begin ();
-  SPI.setClockDivider(SPI_CLOCK_DIV2);
 }
 
- 
 /**************************************************************************/
 /*! 
 Command Bits
@@ -74,7 +70,7 @@ Address Bits
 /**************************************************************************/
 void Zetaohm_AD5676::softwareReset(){
   uint8_t buffer[3];
-  SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE0));
+  SPI.beginTransaction(SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0));
   digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
   buffer[0] = (0x06 << 4) + 0x00;
   buffer[1] = 0x00;
@@ -88,7 +84,7 @@ void Zetaohm_AD5676::softwareReset(){
 void Zetaohm_AD5676::internalReferenceEnable(bool enable)
 {
 
-  SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE0));
+  SPI.beginTransaction(SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0));
   digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
 
   SPI.transfer( (0x07 << 4) + 0x00 );   //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
@@ -104,7 +100,6 @@ void Zetaohm_AD5676::internalReferenceEnable(bool enable)
     //spi4teensy3::send(0x01);           //  FRAME 3 LEAST SIGNIFICANT DATA BYTE  
   }
 
-
   digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
   SPI.endTransaction();
 
@@ -114,7 +109,7 @@ void Zetaohm_AD5676::setVoltage( uint8_t dac, uint16_t output )
 {
   uint8_t buffer[3];
 
-  SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE0));
+  SPI.beginTransaction(SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0));
   digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
 
   buffer[0] = (0x03 << 4) + dac;
@@ -124,20 +119,30 @@ void Zetaohm_AD5676::setVoltage( uint8_t dac, uint16_t output )
   SPI.transfer(buffer, 3 );  //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
 
   digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
+  digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
+
+  buffer[0] = (0x03 << 4) + dac;
+  buffer[1] = output / 256;
+  buffer[2] = output % 256;
+ // spi4teensy3::send(buffer, 3 );  //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
+
+  SPI.transfer(buffer, 3 );  //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
+
+  digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
+
   SPI.endTransaction();
 
  //     digitalWrite(_ldac_pin, HIGH); 
-//
+ //
  // digitalWrite(_ldac_pin, LOW); 
- //     digitalWrite(_ldac_pin, HIGH); 
-
+ // digitalWrite(_ldac_pin, HIGH); 
  // delay(1);
  // digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
  // buffer[1] = 0xFF;
  // buffer[2] = 0xFF;
  //   buffer[0] = (0x02 << 4) + dac;
  //     spi4teensy3::send(buffer, 3 );  //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
-//
+ //
  // digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
 
 }

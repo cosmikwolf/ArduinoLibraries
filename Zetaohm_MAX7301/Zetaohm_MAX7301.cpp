@@ -5,7 +5,7 @@ max7301::max7301(){
 }
 
 max7301::max7301(const uint8_t csPin, uint32_t spispeed){
-	_spiTransactionsSpeed = SPI_CLOCK_DIV2;
+	_spiTransactionsSpeed = 18000000;
 	_cs = csPin;
 //	postSetup(csPin);
 }
@@ -13,7 +13,6 @@ max7301::max7301(const uint8_t csPin, uint32_t spispeed){
 
 void max7301::begin(bool protocolInitOverride) {
 	SPI.begin();
-	SPI.setClockDivider(_spiTransactionsSpeed); // 4 MHz (half speed)
 	SPI.setBitOrder(MSBFIRST);
 	SPI.setDataMode(SPI_MODE0);
 
@@ -28,7 +27,7 @@ void max7301::begin(bool protocolInitOverride) {
 
 
 void max7301::setSPIspeed(uint32_t spispeed){
-	_spiTransactionsSpeed = SPI_CLOCK_DIV2;
+	_spiTransactionsSpeed = spispeed;
 }
 
 
@@ -53,8 +52,8 @@ uint16_t max7301::readAddress(byte addr){
 }
 
 void max7301::writeByte(byte addr, byte data){
-	digitalWriteFast(_cs, LOW);
 	SPI.beginTransaction(SPISettings(_spiTransactionsSpeed, MSBFIRST, SPI_MODE0));
+	digitalWriteFast(_cs, LOW);
 	SPI.transfer(addr & 0x7F);
 
 	SPI.transfer(data);
@@ -64,8 +63,8 @@ void max7301::writeByte(byte addr, byte data){
 
 	SPI.transfer(0x00);
 	SPI.transfer(0x00);
-	SPI.endTransaction();
 	digitalWriteFast(_cs, HIGH);
+	SPI.endTransaction();
 }
 
 void max7301::gpioPinMode(uint16_t mode){

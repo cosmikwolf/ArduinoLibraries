@@ -13,11 +13,11 @@
 #define GPIO_DC ssd1351_pins.dc
 
 #define SPILOWSPEED  14000000
-#define SPIHIGHSPEED 15000000
+#define SPIHIGHSPEED 18000000
 #define SPIBITORDER MSBFIRST
 #define SPIMODE SPI_MODE0
 
-static SPISettings spiSettings(SPILOWSPEED, SPIBITORDER, SPIMODE);
+static SPISettings spiSettings(SPIHIGHSPEED, SPIBITORDER, SPIMODE);
 
 static inline void cmdmode()
 {
