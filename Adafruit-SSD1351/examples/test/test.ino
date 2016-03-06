@@ -80,25 +80,65 @@ void setup(void) {
   // for rendering the test pattern talks directly to the display and
   // ignores any rotation.
 
- 
-
+  pinMode(15, OUTPUT);
+}
 void loop() {
    uint16_t time = millis();
   tft.fillRect(0, 0, 128, 96, BLACK);
   time = millis() - time;
   
   Serial.println(time, DEC);
-  delay(500);
+  delay(5);
   
   lcdTestPattern();
-  delay(500);
+  delay(5);
   
   tft.invert(true);
-  delay(100);
+  delay(1);
   tft.invert(false);
-  delay(100);
+  delay(1);
 
+  digitalWriteFast(15, HIGH);
   tft.fillScreen(BLACK);
+  digitalWriteFast(15, LOW);
+  delay(1);
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(BLUE);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(RED);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(GREEN);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(MAGENTA);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(BLACK);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(BLUE);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(RED);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(GREEN);
+  digitalWriteFast(15, LOW);  delay(1);
+
+  digitalWriteFast(15, HIGH);
+  tft.fillScreen(MAGENTA);
+  digitalWriteFast(15, LOW);
+
+
   testdrawtext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla sed malesuada et, malesuada sit amet turpis. Sed porttitor neque ut ante pretium vitae malesuada nunc bibendum. Nullam aliquet ultrices massa eu hendrerit. Ut sed nisi lorem. In vestibulum purus a tortor imperdiet posuere. ", WHITE);
   delay(500);
 
@@ -138,7 +178,7 @@ void loop() {
   
   Serial.println("done");
   delay(1000);
-}
+
 }
 
 void testlines(uint16_t color) {

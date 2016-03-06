@@ -13,7 +13,8 @@
 #define GPIO_DC ssd1351_pins.dc
 
 #define SPILOWSPEED  14000000
-#define SPIHIGHSPEED 18000000
+//#define SPIHIGHSPEED 18000000 // set this for 120Mhz
+#define SPIHIGHSPEED 15000000
 #define SPIBITORDER MSBFIRST
 #define SPIMODE SPI_MODE0
 
@@ -21,12 +22,12 @@ static SPISettings spiSettings(SPIHIGHSPEED, SPIBITORDER, SPIMODE);
 
 static inline void cmdmode()
 {
-  digitalWrite(GPIO_DC, 0);
+  digitalWriteFast(GPIO_DC, 0);
 }
 
 static inline void datamode()
 {
-  digitalWrite(GPIO_DC, 1);
+  digitalWriteFast(GPIO_DC, 1);
 }
 
 void SSD1351_init_board(void) {
@@ -34,7 +35,7 @@ void SSD1351_init_board(void) {
   pinMode(GPIO_RESET, OUTPUT);
   pinMode(GPIO_RESET, 1);
   pinMode(GPIO_CS, OUTPUT);
-  digitalWrite(GPIO_CS, 1);
+  digitalWriteFast(GPIO_CS, 1);
   pinMode(GPIO_DC, OUTPUT);
   datamode();
 }
@@ -46,18 +47,18 @@ void SSD1351_post_init_board(void) {
 
 void SSD1351_setpin_reset(int state) {
   if(state)
-    digitalWrite(GPIO_RESET, 0);
+    digitalWriteFast(GPIO_RESET, 0);
   else
-    digitalWrite(GPIO_RESET, 1);
+    digitalWriteFast(GPIO_RESET, 1);
 }
 
 void SSD1351_aquirebus(void) {
   SPI.beginTransaction(spiSettings);
-  digitalWrite(GPIO_CS, 0);
+  digitalWriteFast(GPIO_CS, 0);
 }
 
 void SSD1351_releasebus(void) {
-  digitalWrite(GPIO_CS, 1);
+  digitalWriteFast(GPIO_CS, 1);
   SPI.endTransaction();
 }
 

@@ -4,6 +4,8 @@
 #include <inttypes.h>
 #include <SPI.h>//this chip needs SPI
 
+#define DEBOUNCE_THRESHOLD 	20000
+
 class max7301 {
 
 public:
@@ -24,7 +26,7 @@ public:
 	uint32_t		roseBuffer;
 	uint8_t			indexMap[32];
 
-	elapsedMicros timer1;
+	elapsedMicros 	debounceTimer;
 
 private:
 	uint32_t		_spiTransactionsSpeed;//for SPI transactions

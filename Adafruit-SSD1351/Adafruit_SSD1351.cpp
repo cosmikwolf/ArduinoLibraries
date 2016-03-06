@@ -73,7 +73,7 @@ inline void Adafruit_SSD1351::spiwrite(uint8_t c) {
 
 void Adafruit_SSD1351::writeCommand(uint8_t c) {
 
-    SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE3));
+    SPI.beginTransaction(SPISettings(15000000, MSBFIRST, SPI_MODE3));
     *rsport &= ~ rspinmask;
     //digitalWrite(_rs, LOW);
     

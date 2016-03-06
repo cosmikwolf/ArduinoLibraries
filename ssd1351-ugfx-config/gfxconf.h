@@ -40,6 +40,8 @@
 
 /* GFX sub-systems to turn on */
 #define GFX_USE_GDISP				TRUE
+#define GDISP_LLD_PIXELFORMAT      		GDISP_PIXELFORMAT_RGB565
+#define GDISP_HARDWARE_STREAM_WRITE		TRUE
 
 /* Features for the GDISP sub-system. */
 #define GDISP_NEED_VALIDATION		FALSE
@@ -57,6 +59,7 @@
 #define GDISP_NEED_TEXT_WORDWRAP	FALSE
 #define GDISP_NEED_STARTUP_LOGO		FALSE
 //#define GDISP_NEED_PIXMAP			TRUE
+//#define GDISP_HARDWARE_BITFILLS		TRUE
 
 #endif /* _GFXCONF_H */
 

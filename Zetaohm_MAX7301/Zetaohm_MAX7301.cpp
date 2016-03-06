@@ -99,14 +99,21 @@ void max7301::update(){
 	// load the 32 bit integer with the status of all buttons.
 	uint32_t previousState = inputBuffer;
 
-	inputBuffer = 
-		~( (readAddress(0x44) >> 8 ) 
-		|  (readAddress(0x4C) & 0xFF00) 
-		| ((readAddress(0x54) & 0xFF00) << 8 )
-		| ((readAddress(0x5C) & 0xFF00) << 16 ) );
+	if (debounceTimer > DEBOUNCE_THRESHOLD){
+		inputBuffer = 
+			~( (readAddress(0x44) >> 8 ) 
+			|  (readAddress(0x4C) & 0xFF00) 
+			| ((readAddress(0x54) & 0xFF00) << 8 )
+			| ((readAddress(0x5C) & 0xFF00) << 16 ) );
 
-	fellBuffer = (inputBuffer & ~previousState) | fellBuffer;
-	roseBuffer = (~inputBuffer & previousState) | roseBuffer;
+		fellBuffer = (inputBuffer & ~previousState) | fellBuffer;
+		roseBuffer = (~inputBuffer & previousState) | roseBuffer;
+		if (previousState != inputBuffer){ 	
+			Serial.println("debounce timer: " + String(debounceTimer) );
+			debounceTimer = 0;
+		}
+	}
+	
 };
 
 void max7301::init(uint8_t index, uint8_t pin) {

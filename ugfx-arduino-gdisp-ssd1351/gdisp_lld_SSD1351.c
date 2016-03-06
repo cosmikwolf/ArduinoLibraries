@@ -98,18 +98,21 @@ LLDSPEC bool_t gdisp_lld_init(GDisplay *g) {
 	write_reg(g, SSD1351_SET_FUNCTION_SELECT, 0x01); // enable internal VDD regulator
 	write_reg(g, SSD1351_SET_RESET_PRECHARGE, 0x32); // set reset / pre-charge period - phase 2: 3 DCLKs, phase 1: 5 DCLKs
 	write_reg(g, SSD1351_SET_VCOMH, 0x05); // set VComH voltage - 0.82*Vcc
-	write_reg(g, SSD1351_SET_PRECHARGE, 0x17); // set pre-charge voltage - 0.6*Vcc
+ // write_reg(g, SSD1351_SET_PRECHARGE, 0x17); // set pre-charge voltage - 0.6*Vcc
+  write_reg(g, SSD1351_SET_PRECHARGE, 0x32); // set pre-charge voltage - 0.6*Vcc
 	write_cmd(g, SSD1351_SET_DISPLAY_MODE_RESET); // set display mode: reset to normal display
 
 	write_cmd(g, SSD1351_SET_CONTRAST); // set contrast current for A,B,C
 	write_data(g, 0xC8);
-	write_data(g, 0xC8);
+ // write_data(g, 0xC8);
+  write_data(g, 0x80);
 	write_data(g, 0xC8);
 
 	write_reg(g, SSD1351_MASTER_CONTRAST_CURRENT_CONTROL, 0x0F); // master contrast current control - no change
 
 	write_cmd(g, SSD1351_SET_VSL); // set segment low voltage
-	write_data(g, 0xA1); // external VSL
+  write_data(g, 0xA0); // external VSL
+// write_data(g, 0xA1); // external VSL
 	write_data(g, 0xB5); // hard value
 	write_data(g, 0x55); // hard value
 

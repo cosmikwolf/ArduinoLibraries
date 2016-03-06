@@ -93,7 +93,7 @@ void Zetaohm_AD5676::internalReferenceEnable(bool enable)
   //spi4teensy3::send( (0x07 << 4) + 0x00 );   //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
   //spi4teensy3::send(0x00);                   //  FRAME 2 MOST SIGNIFICANT DATA BYTE
   if (enable) {
-    SPI.transfer(0x00);           //  FRAME 3 LEAST SIGNIFICANT DATA BYTE  
+    SPI.transfer(0x04);           //  FRAME 3 LEAST SIGNIFICANT DATA BYTE  
     //spi4teensy3::send(0x00);           //  FRAME 3 LEAST SIGNIFICANT DATA BYTE  
   } else {
     SPI.transfer(0x01);           //  FRAME 3 LEAST SIGNIFICANT DATA BYTE  

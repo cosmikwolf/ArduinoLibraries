@@ -33,9 +33,9 @@
 // If we are using the hardware SPI interface, these are the pins (for future ref)
 #define sclk 13
 #define mosi 11
-#define cs   5
-#define rst  6
-#define dc   4
+#define cs   6
+#define rst  9
+#define dc   10
 
 // Color definitions
 #define	BLACK           0x0000
