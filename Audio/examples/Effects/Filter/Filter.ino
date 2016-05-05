@@ -1,5 +1,5 @@
 #include <Audio.h>
-#include <Wire.h>
+#include <i2c_t3.h>
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
@@ -23,7 +23,7 @@ void setup() {
 
   sgtl5000_1.enable();  // Enable the audio shield
   sgtl5000_1.inputSelect(myInput);
-  sgtl5000_1.volume(0.5);
+  sgtl5000_1.volume(0.6);
 
   // Butterworth filter, 12 db/octave
   biquad1.setLowpass(0, 800, 0.707);

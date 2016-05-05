@@ -2,11 +2,12 @@
 // demonstrate pulse with slow changes in pulse width
 
 #include <Audio.h>
-#include <Wire.h>
+#include <i2c_t3.h>
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
 
+#define _CMYK
 // GUItool: begin automatically generated code
 AudioSynthWaveform       waveform1;      //xy=188,240
 AudioEffectEnvelope      envelope1;      //xy=371,237
@@ -24,8 +25,8 @@ void setup(void)
   // Set up
   AudioMemory(8);
   audioShield.enable();
-  audioShield.volume(0.45);
-
+  audioShield.volume(1.0);
+  audioShield.lineOutLevel(31,31);
   waveform1.pulseWidth(0.5);
   waveform1.begin(0.4, 220, WAVEFORM_PULSE);
 

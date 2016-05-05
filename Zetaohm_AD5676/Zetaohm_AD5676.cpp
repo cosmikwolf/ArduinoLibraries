@@ -33,6 +33,7 @@ Zetaohm_AD5676::Zetaohm_AD5676() {
   _ldac_pin = 0;
   pinMode(_cs_pin, OUTPUT);                        // cs_pin is also the SYNC pin
   digitalWriteFast(_cs_pin, HIGH);  //deactivate DAC
+  AD5676_SPI = SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0);
 
   SPI.begin ();
 }
@@ -70,7 +71,8 @@ Address Bits
 /**************************************************************************/
 void Zetaohm_AD5676::softwareReset(){
   uint8_t buffer[3];
-  SPI.beginTransaction(SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0));
+  waitFifoEmpty();
+  startTransaction();
   digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
   buffer[0] = (0x06 << 4) + 0x00;
   buffer[1] = 0x00;
@@ -78,13 +80,13 @@ void Zetaohm_AD5676::softwareReset(){
   //spi4teensy3::send(buffer, 3 );  //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
   SPI.transfer(buffer, 3);
   digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
-  SPI.endTransaction();
+  endTransaction();
 }
 
 void Zetaohm_AD5676::internalReferenceEnable(bool enable)
 {
-
-  SPI.beginTransaction(SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0));
+  waitFifoEmpty();
+  startTransaction();
   digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
 
   SPI.transfer( (0x07 << 4) + 0x00 );   //  FRAME 1 COMMAND BYTE - Command + DAC Address (C3 C2 C1 C0 A3 A2 A1 A0)
@@ -101,15 +103,15 @@ void Zetaohm_AD5676::internalReferenceEnable(bool enable)
   }
 
   digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
-  SPI.endTransaction();
+  endTransaction();
 
 }
 
 void Zetaohm_AD5676::setVoltage( uint8_t dac, uint16_t output )
 {
   uint8_t buffer[3];
-
-  SPI.beginTransaction(SPISettings(SPI_CLOCK_DIV2, MSBFIRST, SPI_MODE0));
+  waitFifoEmpty();
+  startTransaction();
   digitalWriteFast(_cs_pin, LOW);  // Begin transmission, bring SYNC line low
 
   buffer[0] = (0x03 << 4) + dac;
@@ -130,7 +132,7 @@ void Zetaohm_AD5676::setVoltage( uint8_t dac, uint16_t output )
 
   digitalWriteFast(_cs_pin, HIGH);  // End transmission, bring SYNC line high
 
-  SPI.endTransaction();
+  endTransaction();
 
  //     digitalWrite(_ldac_pin, HIGH); 
  //

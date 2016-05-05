@@ -46,7 +46,12 @@ void AudioOutputI2S::begin(void)
 
 	// TODO: should we set & clear the I2S_TCSR_SR bit here?
 	config_i2s();
+#if defined(_CMYK)
+	CORE_PIN4_CONFIG = PORT_PCR_MUX(6); // pin 22, PTC1, I2S0_TXD0
+#else 
 	CORE_PIN22_CONFIG = PORT_PCR_MUX(6); // pin 22, PTC1, I2S0_TXD0
+
+#endif
 
 #if defined(KINETISK)
 	dma.TCD->SADDR = i2s_tx_buffer;

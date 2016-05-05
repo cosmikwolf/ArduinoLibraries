@@ -58,6 +58,8 @@
 // include all the library headers, so a sketch can use a single
 // #include <Audio.h> to get the whole library
 //
+ #include "filter_lbcf.h"
+#include "filter_ap.h"
 #include "analyze_fft256.h"
 #include "analyze_fft1024.h"
 #include "analyze_print.h"

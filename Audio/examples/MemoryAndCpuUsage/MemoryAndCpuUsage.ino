@@ -14,7 +14,7 @@
 
 
 #include <Audio.h>
-#include <Wire.h>
+#include <i2c_t3.h>
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
